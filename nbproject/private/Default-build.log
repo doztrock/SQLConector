@@ -1,0 +1,3 @@
+g++ -Wall -O3 -lsqlite3 -I/usr/include/mysql -fabi-version=2 -fno-omit-frame-pointer -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl -c -o Conector.o Conector.cpp
+g++ -Wall -O3 -lsqlite3 -I/usr/include/mysql -fabi-version=2 -fno-omit-frame-pointer -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl -c -o Libreria.o Libreria.cpp
+g++ -Wall -O3 conector-test.cpp Conector.o Libreria.o -o conector-test -lsqlite3 -I/usr/include/mysql -fabi-version=2 -fno-omit-frame-pointer -L/usr/lib/x86_64-linux-gnu -lmysqlclient -lpthread -lz -lm -lrt -ldl
