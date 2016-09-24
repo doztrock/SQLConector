@@ -12,16 +12,16 @@ int main(void) {
     Conector *conector = new Conector(SQLITE_DB);
     conector->conectar("/tmp/voip.db");
 
-    //    conector->consulta("select * from configuracion");
-    //
-    //    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << endl;
-    //
-    //    Resultado resultado;
-    //
-    //    while (conector->obtenerResultado(resultado)) {
-    //        cout << resultado["id_variable"] << " <=> " << resultado["variable"] << endl;
-    //        cout << endl << endl;
-    //    }
+    conector->consulta("select * from extension");
+
+    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << endl;
+
+        Resultado resultado;
+    
+        while (conector->obtenerResultado(resultado)) {
+            cout << resultado["id_cuenta"] << " <=> " << resultado["host"] << endl;
+            cout << endl << endl;
+        }
 
     cout << "Escape: " << conector->escape("SELECT ID_CLIENTE FROM CLIENTE, USUARIO WHERE DATO = 'UNO%'") << endl;
 

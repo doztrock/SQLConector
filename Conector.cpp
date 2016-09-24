@@ -21,60 +21,60 @@ void Conector::conectar(std::string db) {
 
     return;
 }
-//
-//void Conector::conectar(std::string host, std::string usuario, std::string clave, std::string db) {
-//
-//    switch (this->motor) {
-//
-//        case MYSQL_DB:
-//           __conectarMySQL(host, usuario, clave, db);
-//            break;
-//
-//        default:
-//            throw Excepcion("El motor no soporta los parametros de conexion especificados.");
-//            break;
-//
-//    }
-//
-//    return;
-//}
-//
-//bool Conector::consulta(std::string query) {
-//
-//    bool resultado = false;
-//
-////    switch (this->motor) {
-////
-////        case SQLITE_DB:
-////            resultado = this->__consultaSQLite(query);
-////            break;
-////
-////        case MYSQL_DB:
-////            resultado = this->__consultaMySQL(query);
-////            break;
-////
-////    }
-//
-//    return resultado;
-//}
-//
-//bool Conector::obtenerResultado(Resultado &resultado) {
-//
-//    Resultado vacio;
-//
-//    //    if (this->indiceResultado < this->listaResultado.size()) {
-//    //
-//    //        resultado = listaResultado.at(indiceResultado);
-//    //        this->indiceResultado++;
-//    //
-//    //        return true;
-//    //    } else {
-//    //        resultado = vacio;
-//    //    }
-//
-//    return false;
-//}
-//
+
+void Conector::conectar(std::string host, std::string usuario, std::string clave, std::string db) {
+
+    switch (this->motor) {
+
+        case MYSQL_DB:
+            __conectarMySQL(host, usuario, clave, db, this->link_MySQL);
+            break;
+
+        default:
+            throw Excepcion("El motor no soporta los parametros de conexion especificados.");
+            break;
+
+    }
+
+    return;
+}
+
+bool Conector::consulta(std::string query) {
+
+    bool resultado = false;
+
+    switch (this->motor) {
+
+        case SQLITE_DB:
+            //this->indiceResultado = 0;//PENDIENTE
+            resultado = __consultaSQLite(query, this->listaResultado, this->link_SQLite);
+            break;
+
+        case MYSQL_DB:
+            //            resultado = this->__consultaMySQL(query);
+            break;
+
+    }
+
+    return resultado;
+}
+
+bool Conector::obtenerResultado(Resultado &resultado) {
+
+    Resultado vacio;
+
+    if (this->indiceResultado < this->listaResultado.size()) {
+
+        resultado = listaResultado.at(indiceResultado);
+        this->indiceResultado++;
+
+        return true;
+    } else {
+        resultado = vacio;
+    }
+
+    return false;
+}
 
 void Conector::desconectar(void) {
 
@@ -85,7 +85,7 @@ void Conector::desconectar(void) {
             break;
 
         case MYSQL_DB:
-//            __desconectarMySQL();
+            __desconectarMySQL(this->link_MySQL);
             break;
 
     }
@@ -104,7 +104,7 @@ std::string Conector::escape(std::string cadena) {
             break;
 
         case MYSQL_DB:
-//            cadenaEscapada = this->__escapeMySQL(cadena);
+            cadenaEscapada = __escapeMySQL(cadena, this->link_MySQL);
             break;
 
     }
@@ -123,7 +123,7 @@ int Conector::obtenerFilasAfectadas() {
             break;
 
         case MYSQL_DB:
-//            cantidad = this->__filasAfectadasMySQL();
+            cantidad = __filasAfectadasMySQL(this->link_MySQL);
             break;
 
     }
@@ -142,19 +142,19 @@ int Conector::obtenerLastID() {
             break;
 
         case MYSQL_DB:
-//            last_id = this->__lastidMySQL();
+            last_id = __lastidMySQL(this->link_MySQL);
             break;
 
     }
 
     return last_id;
 }
-//
-//unsigned long int Conector::obtenerCantidadResultados() {
-//
-//    if (!this->listaResultado.empty()) {
-//        return this->listaResultado.size();
-//    }
-//
-//    return 0;
-//}
+
+unsigned long int Conector::obtenerCantidadResultados() {
+
+    if (!this->listaResultado.empty()) {
+        return this->listaResultado.size();
+    }
+
+    return 0;
+}

@@ -40,17 +40,13 @@ public:
     /*Constructor*/
     Conector(Motor motor);
 
-    /**
-     * METODOS PUBLICOS
-     */
-
     /*Conexion*/
     void conectar(std::string db);
-    //    void conectar(std::string host, std::string usuario, std::string clave, std::string db);
-    //
-    //    /*Consulta*/
-    //    bool consulta(std::string query);
-    //    bool obtenerResultado(Resultado &resultado);
+    void conectar(std::string host, std::string usuario, std::string clave, std::string db);
+
+    /*Consulta*/
+    bool consulta(std::string query);
+    bool obtenerResultado(Resultado &resultado);
 
     /*Desconexion*/
     void desconectar(void);
@@ -59,7 +55,7 @@ public:
     std::string escape(std::string cadena);
     int obtenerFilasAfectadas(void);
     int obtenerLastID(void);
-    //    unsigned long int obtenerCantidadResultados(void);
+    unsigned long int obtenerCantidadResultados(void);
 
 };
 

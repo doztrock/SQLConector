@@ -3,6 +3,7 @@
 
 #include <string>
 #include <sqlite3.h>
+#include <vector>
 
 #include "../Libreria.hpp"
 #include "../Excepcion.hpp"
@@ -12,7 +13,7 @@ using namespace std;
 void __conectarSQLite(std::string db, sqlite3 *link_SQLite);
 void __desconectarSQLite(sqlite3 *link_SQLite);
 
-//bool __consultaSQLite(std::string query);
+bool __consultaSQLite(std::string query, vector<Resultado>& listaResultado, sqlite3 *link_SQLite);
 
 std::string __escapeSQLite(std::string cadena);
 
