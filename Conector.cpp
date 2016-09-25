@@ -1,4 +1,5 @@
 #include "Conector.hpp"
+#include <iostream>
 
 Conector::Conector(Motor motor) {
     this->motor = motor;
@@ -19,6 +20,10 @@ void Conector::conectar(std::string db) {
 
     }
 
+    if(this->link_SQLite == NULL){
+        cout << "ERRR"<<endl;
+    }
+    
     return;
 }
 

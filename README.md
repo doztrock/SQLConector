@@ -50,3 +50,6 @@ Conector *conector = new Conector(SQLITE_DB);
     conector->desconectar();
 }
 `
+
+//Verificar existencia db - sqlite
+//Crear funcion para liberar memoria

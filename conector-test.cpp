@@ -7,23 +7,38 @@ using namespace std;
 
 int main(void) {
 
-    /**TEST SQLITE*/
+    /**
+     * Prueba SQLITE
+     */
+    const string DATA_DB = "/home/ivan/data.db";
+    Resultado resultadoCliente;
+    Resultado resultadoDato;
+    string consulta;
 
     Conector *conector = new Conector(SQLITE_DB);
-    conector->conectar("/tmp/voip.db");
+    conector->conectar(DATA_DB);
 
-    conector->consulta("select * from extension");
-
-    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << endl;
-
-        Resultado resultado;
+    //Cliente
     
-        while (conector->obtenerResultado(resultado)) {
-            cout << resultado["id_cuenta"] << " <=> " << resultado["host"] << endl;
-            cout << endl << endl;
-        }
+    consulta = "SELECT * FROM cliente";
+    conector->consulta(consulta);
 
-    cout << "Escape: " << conector->escape("SELECT ID_CLIENTE FROM CLIENTE, USUARIO WHERE DATO = 'UNO%'") << endl;
+    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << " resultados." << endl;
+
+    while (conector->obtenerResultado(resultadoCliente)) {
+        cout << resultadoCliente["id_cliente"] << " <=> " << resultadoCliente["nombre"] << endl;
+    }
+
+    //Dato
+    
+    consulta = "SELECT * FROM dato";
+    conector->consulta(consulta);
+
+    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << " resultados." << endl;
+
+    while (conector->obtenerResultado(resultadoCliente)) {
+        cout << resultadoCliente["id_dato"] << " <=> " << resultadoCliente["valor"] << endl;
+    }
 
     conector->desconectar();
 

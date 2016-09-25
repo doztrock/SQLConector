@@ -4,7 +4,7 @@
  * Realiza la conexion a SQLite.
  * @param String Ruta de la base de datos
  */
-void __conectarSQLite(std::string db, sqlite3 *link_SQLite) {
+void __conectarSQLite(std::string db, LINK_SQLITE &link_SQLite) {
 
     const char *fichero = db.c_str();
     int rc;
@@ -22,7 +22,7 @@ void __conectarSQLite(std::string db, sqlite3 *link_SQLite) {
 /**
  * Realiza la desconexion del SQLite.
  */
-void __desconectarSQLite(sqlite3 *link_SQLite) {
+void __desconectarSQLite(LINK_SQLITE &link_SQLite) {
 
     if (link_SQLite != NULL) {
         sqlite3_close(link_SQLite);
@@ -38,7 +38,7 @@ void __desconectarSQLite(sqlite3 *link_SQLite) {
  * @param String Consulta a realizar
  * @return Boolean Estado de la consulta
  */
-bool __consultaSQLite(std::string query, vector<Resultado>& listaResultado, sqlite3 *link_SQLite) {
+bool __consultaSQLite(std::string query, vector<Resultado>& listaResultado, LINK_SQLITE &link_SQLite) {
 
     sqlite3_stmt *resultado = NULL;
     int rc;
@@ -92,13 +92,13 @@ std::string __escapeSQLite(std::string cadena) {
 /**
  * Retorna el total de filas que fueron afectadas por la operacion.
  */
-int __filasAfectadasSQLite(sqlite3 *link_SQLite) {
+int __filasAfectadasSQLite(LINK_SQLITE &link_SQLite) {
     return sqlite3_changes(link_SQLite);
 }
 
 /**
  * Retorna el ultimo identificador afectado.
  */
-int __lastidSQLite(sqlite3 *link_SQLite) {
+int __lastidSQLite(LINK_SQLITE &link_SQLite) {
     return sqlite3_last_insert_rowid(link_SQLite);
 }

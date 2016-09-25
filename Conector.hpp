@@ -26,7 +26,7 @@ private:
     Motor motor;
 
     /*SQLite*/
-    sqlite3 *link_SQLite;
+    LINK_SQLITE link_SQLite;
 
     /*MYSQL*/
     MYSQL *link_MySQL;
