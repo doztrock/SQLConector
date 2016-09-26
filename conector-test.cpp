@@ -36,8 +36,8 @@ int main(void) {
 
     cout << "Se encontraron: " << conector->obtenerCantidadResultados() << " resultados." << endl;
 
-    while (conector->obtenerResultado(resultadoCliente)) {
-        cout << resultadoCliente["id_dato"] << " <=> " << resultadoCliente["valor"] << endl;
+    while (conector->obtenerResultado(resultadoDato)) {
+        cout << resultadoDato["id_dato"] << " <=> " << resultadoDato["valor"] << endl;
     }
 
     conector->desconectar();

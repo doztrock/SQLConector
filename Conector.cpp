@@ -51,7 +51,7 @@ bool Conector::consulta(std::string query) {
     switch (this->motor) {
 
         case SQLITE_DB:
-            //this->indiceResultado = 0;//PENDIENTE
+            this->indiceResultado = 0;//PENDIENTE
             resultado = __consultaSQLite(query, this->listaResultado, this->link_SQLite);
             break;
 
