@@ -20,10 +20,6 @@ void Conector::conectar(std::string db) {
 
     }
 
-    if(this->link_SQLite == NULL){
-        cout << "ERRR"<<endl;
-    }
-    
     return;
 }
 
@@ -51,7 +47,7 @@ bool Conector::consulta(std::string query) {
     switch (this->motor) {
 
         case SQLITE_DB:
-            this->indiceResultado = 0;//PENDIENTE
+            this->indiceResultado = 0;
             resultado = __consultaSQLite(query, this->listaResultado, this->link_SQLite);
             break;
 
@@ -76,6 +72,7 @@ bool Conector::obtenerResultado(Resultado &resultado) {
         return true;
     } else {
         resultado = vacio;
+        this->listaResultado.clear();
     }
 
     return false;

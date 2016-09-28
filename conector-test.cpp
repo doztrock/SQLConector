@@ -10,7 +10,7 @@ int main(void) {
     /**
      * Prueba SQLITE
      */
-    const string DATA_DB = "/home/ivan/data.db";
+    const string DATA_DB = "/home/developer/data.db";
     Resultado resultadoCliente;
     Resultado resultadoDato;
     string consulta;
@@ -19,7 +19,7 @@ int main(void) {
     conector->conectar(DATA_DB);
 
     //Cliente
-    
+
     consulta = "SELECT * FROM cliente";
     conector->consulta(consulta);
 
@@ -30,7 +30,7 @@ int main(void) {
     }
 
     //Dato
-    
+
     consulta = "SELECT * FROM dato";
     conector->consulta(consulta);
 
@@ -38,6 +38,17 @@ int main(void) {
 
     while (conector->obtenerResultado(resultadoDato)) {
         cout << resultadoDato["id_dato"] << " <=> " << resultadoDato["valor"] << endl;
+    }
+
+    //Mezcla
+
+    consulta = "SELECT * FROM dato, cliente";
+    conector->consulta(consulta);
+
+    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << " resultados." << endl;
+
+    while (conector->obtenerResultado(resultadoDato)) {
+        cout << resultadoDato["id_dato"] << " <=> " << resultadoDato["valor"] << " <=> " << resultadoDato["nombre"] << endl;
     }
 
     conector->desconectar();
