@@ -1,9 +1,23 @@
 #include <iostream>
 #include <cstdlib>
 
+#include <ctime>
+#include <sstream>
+#include <unistd.h>
+
 #include "Conector.hpp"
 
 using namespace std;
+
+string generarNumero(void) {
+
+    stringstream numero;
+    srand(time(NULL));
+
+    numero << rand() % 1000000 + 100000;
+
+    return numero.str();
+}
 
 int main(void) {
 
@@ -50,6 +64,41 @@ int main(void) {
     while (conector->obtenerResultado(resultadoDato)) {
         cout << resultadoDato["id_dato"] << " <=> " << resultadoDato["valor"] << " <=> " << resultadoDato["nombre"] << endl;
     }
+
+    //Insercion
+    stringstream consultaInsercion;
+    stringstream consultaEliminacion;
+    int lastID = 0;
+
+    for (int i = 0; i < 10; i++) {
+
+        consultaInsercion << "INSERT INTO dato (valor) VALUES (" << generarNumero() << i << ")";
+
+        cout << consultaInsercion.str() << endl;
+
+        if (conector->consulta(consultaInsercion.str())) {
+            lastID = conector->obtenerLastID();
+            cout << "OK" << "Identificador Insertado: " << lastID << endl;
+        }
+
+        if (i % 2 == 0) {
+            consultaEliminacion << "DELETE FROM dato"; /* WHERE id_dato = '" << lastID << "'";*/
+
+            cout << consultaEliminacion.str() << endl;
+
+            if (conector->consulta(consultaEliminacion.str())) {
+                cout << "ELIMINADO" << endl;
+                cout << "Afectado: " << conector->obtenerFilasAfectadas() << endl;
+            }
+
+        }
+
+        consultaInsercion.str("");
+        consultaEliminacion.str("");
+        usleep(50000);
+    }
+
+    cout << conector->escape("Select * from dato where bla bla bla") << endl;
 
     conector->desconectar();
 

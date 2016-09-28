@@ -1,5 +1,4 @@
 #include "Conector.hpp"
-#include <iostream>
 
 Conector::Conector(Motor motor) {
     this->motor = motor;

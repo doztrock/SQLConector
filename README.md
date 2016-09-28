@@ -53,3 +53,4 @@ Conector *conector = new Conector(SQLITE_DB);
 
 //Verificar existencia db - sqlite
 //Crear funcion para liberar memoria
+//Crear funcion para ejecutar lotes de consultas
