@@ -21,91 +21,8 @@ string generarNumero(void) {
 
 int main(void) {
 
-    /**
-     * Prueba SQLITE
-     */
-    const string DATA_DB = "/home/developer/data.db";
-    Resultado resultadoCliente;
-    Resultado resultadoDato;
-    string consulta;
-
-    Conector *conector = new Conector(SQLITE_DB);
-    conector->conectar(DATA_DB);
-
-    //Cliente
-
-    consulta = "SELECT * FROM cliente";
-    conector->consulta(consulta);
-
-    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << " resultados." << endl;
-
-    while (conector->obtenerResultado(resultadoCliente)) {
-        cout << resultadoCliente["id_cliente"] << " <=> " << resultadoCliente["nombre"] << endl;
-    }
-
-    //Dato
-
-    consulta = "SELECT * FROM dato";
-    conector->consulta(consulta);
-
-    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << " resultados." << endl;
-
-    while (conector->obtenerResultado(resultadoDato)) {
-        cout << resultadoDato["id_dato"] << " <=> " << resultadoDato["valor"] << endl;
-    }
-
-    //Mezcla
-
-    consulta = "SELECT * FROM dato, cliente";
-    conector->consulta(consulta);
-
-    cout << "Se encontraron: " << conector->obtenerCantidadResultados() << " resultados." << endl;
-
-    while (conector->obtenerResultado(resultadoDato)) {
-        cout << resultadoDato["id_dato"] << " <=> " << resultadoDato["valor"] << " <=> " << resultadoDato["nombre"] << endl;
-    }
-
-    //Insercion
-    stringstream consultaInsercion;
-    stringstream consultaEliminacion;
-    int lastID = 0;
-
-    for (int i = 0; i < 10; i++) {
-
-        consultaInsercion << "INSERT INTO dato (valor) VALUES (" << generarNumero() << i << ")";
-
-        cout << consultaInsercion.str() << endl;
-
-        if (conector->consulta(consultaInsercion.str())) {
-            lastID = conector->obtenerLastID();
-            cout << "OK" << "Identificador Insertado: " << lastID << endl;
-        }
-
-        if (i % 2 == 0) {
-            consultaEliminacion << "DELETE FROM dato"; /* WHERE id_dato = '" << lastID << "'";*/
-
-            cout << consultaEliminacion.str() << endl;
-
-            if (conector->consulta(consultaEliminacion.str())) {
-                cout << "ELIMINADO" << endl;
-                cout << "Afectado: " << conector->obtenerFilasAfectadas() << endl;
-            }
-
-        }
-
-        consultaInsercion.str("");
-        consultaEliminacion.str("");
-        usleep(50000);
-    }
-
-    cout << conector->escape("Select * from dato where bla bla bla") << endl;
-
-    conector->desconectar();
-
-    /**TEST MYSQL*/
-
-    //    Conector *conector = new Conector(MYSQL_DB);
-    //    conector->conectar("host", "usuario", "clave", "base de datos");
+    Conector *conector = new Conector(MYSQL_DB);
+    conector->conectar("localhost", "root", "Slptshr369*", "prueba");
 
     //    conector->consulta("select * from cliente");
     //
@@ -120,7 +37,7 @@ int main(void) {
     //
     //    cout << "Escape: " << conector->escape("SELECT ID_CLIENTE FROM CLIENTE, USUARIO WHERE DATO = 'UNO%'") << endl;
     //
-    //    conector->desconectar();
+    conector->desconectar();
 
     return EXIT_SUCCESS;
 }

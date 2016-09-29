@@ -3,18 +3,26 @@
 
 #include <string>
 #include <mysql/mysql.h>
+#include <vector>
 
 #include "../Libreria.hpp"
 #include "../Excepcion.hpp"
 
-void __conectarMySQL(std::string host, std::string usuario, std::string clave, std::string db, MYSQL *link_MySQL);
-void __desconectarMySQL(MYSQL *link_MySQL);
+/*
+ * Recurso de conexion a MySQL
+ */
+typedef MYSQL * LINK_MYSQL;
 
-//bool Conector::__consultaMySQL(std::string query);
+using namespace std;
 
-std::string __escapeMySQL(std::string cadena, MYSQL *link_MySQL);
+void __conectarMySQL(std::string host, std::string usuario, std::string clave, std::string db, LINK_MYSQL &link_MySQL);
+void __desconectarMySQL(LINK_MYSQL &link_MySQL);
 
-int __filasAfectadasMySQL(MYSQL *link_MySQL);
-int __lastidMySQL(MYSQL *link_MySQL);
+bool __consultaMySQL(std::string query, vector<Resultado>& listaResultado, LINK_MYSQL &link_MySQL);
+
+std::string __escapeMySQL(std::string cadena, LINK_MYSQL &link_MySQL);
+
+int __filasAfectadasMySQL(LINK_MYSQL &link_MySQL);
+int __lastidMySQL(LINK_MYSQL &link_MySQL);
 
 #endif /* MYSQL_HPP */

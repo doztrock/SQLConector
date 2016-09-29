@@ -51,7 +51,7 @@ bool Conector::consulta(std::string query) {
             break;
 
         case MYSQL_DB:
-            //            resultado = this->__consultaMySQL(query);
+            resultado = __consultaMySQL(query, this->listaResultado, this->link_MySQL);
             break;
 
     }
